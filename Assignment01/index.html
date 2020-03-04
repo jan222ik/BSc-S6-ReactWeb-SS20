@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assignment 01</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <!--suppress CssUnusedSymbol -->
+  <style>
+    body {
+      font-family: 'Roboto Mono', monospace;
+      background-color: #2E2E2E;
+      color: #FFF;
+      margin: 0;
+    }
+
+    .controls {
+      width: 100%;
+      background-color: inherit;
+      position: fixed;
+      padding: 8px 0;
+    }
+
+    .container {
+      display: inline-block;
+      margin-top: 95px;
+    }
+
+    .red {
+      color: #d64945
+    }
+
+    .green {
+      color: greenyellow;
+    }
+
+    input, select, textarea {
+      color: #FFF;
+      background-color: #5f5f5f;
+    }
+
+    textarea:focus, input:focus {
+      color: #FFF;
+      background-color: #5f5f5f;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+  <script>
+    const OPERATORS = ['+', '-', '*', '/'];
+    let DEBUG_SHOW_RESULT = false;
+    let SKIP_ON_ERROR = true;
+
+    function createNext() {
+      let container = document.getElementById(`container`);
+      let first = randomNumber(100);
+      let second = randomNumber(100);
+      let operator = OPERATORS[randomNumber(3)];
+      let result;
+      switch (operator) {
+        case OPERATORS[0]:
+          result = first + second;
+          break;
+        case OPERATORS[1]:
+          result = first - second;
+          break;
+        case OPERATORS[2]:
+          result = first * second;
+          break;
+        case OPERATORS[3]:
+          result = first / second;
+          break;
+      }
+      // Create Subcontainer
+      let div = document.createElement('div');
+
+      // Append the Calculation to Subcontainer
+      let resultString = (DEBUG_SHOW_RESULT) ? result.toString() : '';
+      div.appendChild(document.createTextNode(`${padNum(first, true)} ${operator} ${padNum(second, false)} = `));
+      // Append the Result Element
+      let resultSpan = document.createElement('span');
+      resultSpan.innerText = resultString;
+      div.appendChild(resultSpan);
+
+      // Append new TextField with change Listener to Subcontainer
+      let enterResult = document.createElement('input');
+      enterResult.type = 'number';
+      enterResult.addEventListener('change', listener(result, enterResult, div, resultSpan));
+      div.appendChild(enterResult);
+
+      //Append Subcontainer and new line to container
+      container.append(
+        div,
+        document.createElement('br'));
+
+      // Set focus to TextBox
+      enterResult.focus();
+    }
+
+    function listener(result, element, div, resultSpan) {
+      let active = true;
+      return function () {
+        if (!active) return;
+        let userEntered = element.value;
+        let next = SKIP_ON_ERROR;
+        if (userEntered === result.toString()) {
+          active = false;
+          next = true;
+          div.className = 'green';
+        } else {
+          div.className = 'red';
+          active = !SKIP_ON_ERROR;
+          if (SKIP_ON_ERROR) {
+            resultSpan.text = result
+          }
+        }
+        if (next) {
+          createNext()
+        }
+      }
+    }
+
+    function randomNumber(scale) {
+      return Math.round(Math.random() * scale)
+    }
+
+    function controlListeners() {
+      let toggleWrong = document.getElementById('wrongSwitch');
+      toggleWrong.click();
+      toggleWrong.addEventListener('change', function () {
+        SKIP_ON_ERROR = !SKIP_ON_ERROR
+      });
+      let debugShowResultSwitch = document.getElementById('debugShowResultSwitch');
+      debugShowResultSwitch.addEventListener('change', function () {
+        DEBUG_SHOW_RESULT = !DEBUG_SHOW_RESULT
+      })
+    }
+
+    function padNum(integer, left) {
+        let len = integer.toString().length;
+        return left ? '\u00A0'.repeat(3 - len).concat(integer.toString()) : integer.toString().concat('\u00A0'.repeat(3 - len))
+    }
+  </script>
+</head>
+<body>
+<div class="controls">
+  <label class="switch">
+    Skip on a wrong answer:
+    <input id='wrongSwitch' type="checkbox">
+    <span class="slider round"></span>
+  </label>
+  <br/>
+  <label class="switch">
+    DEBUG: Show Result with Exercise:
+    <input id='debugShowResultSwitch' type="checkbox">
+    <span class="slider round"></span>
+  </label>
+</div>
+<div id="container" class="container">
+
+</div>
+</body>
+<script>
+  controlListeners();
+  createNext()
+</script>
+</html>
