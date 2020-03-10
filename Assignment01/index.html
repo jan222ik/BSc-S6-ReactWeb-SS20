@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Assignment 01</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <!--suppress CssUnusedSymbol -->
     <style>
         body {
@@ -22,7 +23,7 @@
 
         .container {
             display: inline-block;
-            margin-top: 115px;
+            margin-top: 125px;
         }
 
         .red {
@@ -30,7 +31,7 @@
         }
 
         .green {
-            color: greenyellow;
+            color: #adff2f
         }
 
         .streak {
@@ -74,6 +75,13 @@
             100% {
                 background: #2E2E2E;
             }
+        }
+
+        .chart {
+            position: fixed;
+            top: 1em;
+            right: 1em;
+            background-color: inherit;
         }
 
         input, select, textarea {
@@ -232,8 +240,35 @@
             streakAnimation.addEventListener('change', function () {
                 STREAK_ANIMATE = !STREAK_ANIMATE;
                 applyStreak()
-            })
+            });
+            updateChart();
+        }
 
+        function updateChart() {
+            let allLabels = ['Correct', 'Wrong'];
+            let colors = ['#adff2f', '#d64945'];
+            let data = [{
+                values: [correct, wrong],
+                labels: allLabels,
+                type: 'pie',
+                marker: {
+                    colors: colors
+                }
+            }];
+
+            let layout = {
+                height: 400,
+                width: 500,
+                plot_bgcolor: 'white',
+                paper_bgcolor: '#2E2E2E',
+                font: {
+                    family: 'sans-serif',
+                    size: 12,
+                    color: '#FFF'
+                }
+            };
+
+            Plotly.react('myDiv', data, layout);
         }
 
         function padNum(integer, left) {
@@ -245,6 +280,7 @@
             document.getElementById('correctCounter').innerText = correct.toString();
             document.getElementById('wrongCounter').innerText = wrong.toString();
             document.getElementById('totalCounter').innerText = (correct + wrong).toString();
+            updateChart()
         }
 
         function applyStreak() {
@@ -303,6 +339,7 @@
         <span id="maxStreakCounter"></span>
     </label>
 </div>
+<div id='myDiv' class="chart"></div>
 <div id="container" class="container">
 
 </div>
