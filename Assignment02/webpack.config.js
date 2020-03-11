@@ -1,5 +1,5 @@
 const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -54,7 +54,11 @@ module.exports = {
         library: 'EntryPoint'
     },
     plugins: [
-        new htmlWebpackPlugin({template: "./src/index.html", filename: "index.html"}),
+        new HtmlWebpackPlugin(
+            {
+                template: "./src/index.html", filename: "index.html"
+            }
+        ),
         new MiniCssExtractPlugin(
             {
                 filename: "[name].css",
