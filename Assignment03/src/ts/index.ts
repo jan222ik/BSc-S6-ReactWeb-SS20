@@ -18,6 +18,10 @@ function readStateChange(isRead: boolean, oldValue: boolean): void {
 }
 
 // noinspection JSUnusedGlobalSymbols
+/**
+ * Creates demo messages, which are not read.
+ * @param size of generated message collection.
+ */
 const demo = function (size = 10): void {
     console.log("Create DemoData");
     const arr = new Array<Message>(0);
@@ -28,6 +32,12 @@ const demo = function (size = 10): void {
     messages.update(arr);
 };
 
+/**
+ * Updates span element of navigation button to display the amount of new messages.
+ * @param number < 1: the span will be empty
+ *               >=1 && <= PLUS_NOTATION_MIN : the span will show the real amount.
+ *               > PLUS_NOTATION_MIN: the span will show the abbreviation of "{PLUS_NOTATION_MIN}+"
+ */
 function updateNavigationMsgCountLabel(number: number): void {
     const msgLabel = document.getElementById("newMsgLabel");
     const textNumber: string = (number > PLUS_NOTATION_MIN) ? "5+" : number.toString();
@@ -38,6 +48,12 @@ function updateCorrectTotalsHeading(): void {
     document.getElementById('totalMessages').textContent = `You have ${messageCount.value} unread messages out of ${messages.value.length} messages.`
 }
 
+/**
+ * Creates a div element containing relevant information of a message
+ * and adds a listener for changing read state of the message.
+ * @param msg message to generate div for.
+ * @return HTMLDivElement with msg content.
+ */
 function createMessageLayoutElement(msg: Message): HTMLDivElement {
     const div = document.createElement('div');
     div.className = "msg" + ((msg.msgRead.value) ? "" : " unread");
@@ -54,22 +70,26 @@ function createMessageLayoutElement(msg: Message): HTMLDivElement {
     return div;
 }
 
+/**
+ * Clears #message-overview-container and refills it with the existing messages.
+ */
 function renderMessages(): void {
     const container = document.getElementById('message-overview-container');
     container.innerHTML = '';
     messages.value.forEach(item => container.append(createMessageLayoutElement(item)));
 }
 
+/**
+ * Setup for messageCount Observable and its listener.
+ * Also, matching generated state with existing messages.
+ */
 function setupDataStore(): void {
     messageCount = new Observable(messages.value.filter(value => value.msgRead.value != true).length);
     messageCount.createObserver(function (value: number) {
         updateNavigationMsgCountLabel(value);
         updateCorrectTotalsHeading();
     });
-    updateNavigationMsgCountLabel(messageCount.value);
     messages.createObserver(() => renderMessages());
-    updateCorrectTotalsHeading();
-    renderMessages();
 }
 
 function setupFormListeners(): void {
@@ -87,18 +107,26 @@ function setupFormListeners(): void {
     })
 }
 
+/**
+ * Changes the tabs of application.
+ * @param toComposeMessage <boolean> if true the 'compose' tab will be displayed otherwise the 'overview' tab
+ */
+function switchView(toComposeMessage: boolean): void {
+    const overviewContainer = document.getElementById('message-overview-layout');
+    const composeContainer = document.getElementById('message-compose-container');
+    if (toComposeMessage) {
+        composeContainer.className = '';
+        overviewContainer.className = 'gone';
+    } else {
+        composeContainer.className = 'gone';
+        overviewContainer.className = '';
+    }
+}
+
+/**
+ * Setup of tab navigation and displaying the first tab according to the url parameter 'navTarget'.
+ */
 function setupNavigationListener(): void {
-    const switchView = function (toComposeMessage: boolean): void {
-        const overviewContainer = document.getElementById('message-overview-layout');
-        const composeContainer = document.getElementById('message-compose-container');
-        if (toComposeMessage) {
-            composeContainer.className = '';
-            overviewContainer.className = 'gone';
-        } else {
-            composeContainer.className = 'gone';
-            overviewContainer.className = '';
-        }
-    };
     document.getElementById('messageOverviewBtn')
         .addEventListener('click', () => switchView(false));
     document.getElementById('messageComposeBtn')
@@ -108,10 +136,20 @@ function setupNavigationListener(): void {
     switchView((navTarget && navTarget == 'compose'));
 }
 
+/**
+ * Invokes all setup methods.
+ */
 const run = function (): void {
     console.log("Start Setup");
+    // Setup State
     setupDataStore();
+    // First render messages
+    updateNavigationMsgCountLabel(messageCount.value);
+    updateCorrectTotalsHeading();
+    renderMessages();
+    // Setup Form Listeners
     setupFormListeners();
+    // Setup Navigation Inputs
     setupNavigationListener();
     console.log(messages)
 };
