@@ -117,6 +117,8 @@ function switchView(toComposeMessage: boolean): void {
     if (toComposeMessage) {
         composeContainer.className = '';
         overviewContainer.className = 'gone';
+        const form = document.getElementById('composeForm') as HTMLFormElement;
+        form.reset();
     } else {
         composeContainer.className = 'gone';
         overviewContainer.className = '';
