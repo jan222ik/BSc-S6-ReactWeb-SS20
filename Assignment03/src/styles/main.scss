@@ -72,6 +72,10 @@ h3, p {
   color: #FFF;
 }
 
+#totalMessages {
+  color: red;
+}
+
 .unread {
   background: lighten($surface, 10%);
   transition-duration: 300ms;
