@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "eslint ./src --ext .js,.jsx,.ts,.tsx && webpack -p",
+    "build": "tsc && eslint ./src --ext .js,.jsx,.ts,.tsx && webpack -p",
     "dev": "webpack-dev-server",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc",
+    "build:watching": "tsc && eslint ./src --ext .js,.jsx,.ts,.tsx && webpack -w"
   },
   "dependencies": {},
   "devDependencies": {
