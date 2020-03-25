@@ -1,0 +1,113 @@
+$bg: #212121;
+$surface: #323232;
+$primary: #0d7377;
+$secondary: #14ffec;
+
+$nav-height: 4vh;
+$horizontalMargin: 5vw;
+
+body {
+  background: $bg;
+}
+
+nav {
+  width: 100vw;
+  background: $bg;
+  top: 0;
+  height: $nav-height;
+  position: fixed;
+
+  button {
+    float: right;
+    margin-top: $nav-height / 4;
+    margin-right: 5vw + $horizontalMargin;
+  }
+
+  button:last-of-type {
+    margin-right: 10px;
+  }
+}
+
+button {
+  background: $primary;
+  border-radius: 25px;
+  border-width: 0;
+  transition-duration: 0.4s;
+  outline: none;
+  color: darken($surface, 13%);
+}
+
+button:hover {
+  background: $secondary;
+}
+
+.gone {
+  display: none;
+}
+
+.container {
+  margin: $nav-height $horizontalMargin 0;
+}
+
+.msg {
+  background: $surface;
+  border-radius: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 10px;
+  transition-duration: 300ms;
+
+  h3 {
+    padding-top: 10px;
+  }
+
+  p {
+    border-radius: 25px;
+    padding: 5px 10px 10px 25px;
+    margin: 0;
+  }
+}
+
+.white {
+  color: #FFF;
+}
+
+h3, p {
+  color: #FFF;
+}
+
+.totalMessages {
+  color: red;
+}
+
+.unread {
+  background: lighten($surface, 10%);
+  transition-duration: 300ms;
+}
+
+form {
+  label {
+    color: #FFF;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $surface;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $primary;
+}
+
+ul {
+  list-style-type: none;
+}
+
