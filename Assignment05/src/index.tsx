@@ -47,6 +47,13 @@ const GlobalStyle = createGlobalStyle`
                 margin-right: 1vw;
             }
         }
+        
+        input, textarea {
+             background-color: ${(props: StyleProps) => props.theme.colors.bg};
+             color: ${(props: StyleProps) => props.theme.colors.fontColor};
+             transition: background-color 250ms linear;
+             transition: color 250ms linear;
+        }
     
         ::-webkit-scrollbar {
             width: 10px;
@@ -138,7 +145,7 @@ const MsgStyleUnread = styled.div`
         }
     `;
 
-const NavButton = styled.button`
+const CustomButton = styled.button`
         background: ${(props: StyleProps) => (props.nav.isSelected) ? props.theme.colors.secondary : props.theme.colors.primary};
         border-radius: 25px;
         border-width: 0;
@@ -198,7 +205,7 @@ const ComposeSection = (props: ComposeSectionProps) => {
                       onChange={(e) => setComposeBody(e.target.value)}
                       value={composeBody}/>
             <br/><br/>
-            <button>Submit!</button>
+            <CustomButton nav={{isSelected : false}}>Submit!</CustomButton>
         </form>
     </section>;
 }
@@ -235,15 +242,15 @@ const App = () => {
             <GlobalStyle/>
             <Container>
                 <nav>
-                    <NavButton nav={{isSelected: !isComposeTab}} onClick={() => setTab(false)}>
+                    <CustomButton nav={{isSelected: !isComposeTab}} onClick={() => setTab(false)}>
                         Your Messages
                         <span>
                             {(unreadCount > 0) ? " (" + ((unreadCount > MAX_DISPLAY_NUM) ? MAX_DISPLAY_NUM + "+" : unreadCount) + " new)" : ""}
                         </span>
-                    </NavButton>
-                    <NavButton nav={{isSelected: isComposeTab}} onClick={() => setTab(true)}>
+                    </CustomButton>
+                    <CustomButton nav={{isSelected: isComposeTab}} onClick={() => setTab(true)}>
                         Compose a Message
-                    </NavButton>
+                    </CustomButton>
                     <label>
                         Dark Mode:
                         <input
