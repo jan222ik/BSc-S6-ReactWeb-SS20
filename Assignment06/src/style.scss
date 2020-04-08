@@ -1,0 +1,34 @@
+.card {
+  font-size: 10em;
+}
+
+.black {
+  color: black;
+}
+
+.red {
+  color: orangered;
+}
+
+p, h3 {
+  margin: 0;
+}
+
+.correct {
+  animation: correctChange 1s;
+  -webkit-animation: correctChange 1s;
+}
+
+@keyframes correctChange
+{
+  0%   {background: initial;}
+  50%  {background: green;}
+  100%  {background: initial;}
+}
+
+@-webkit-keyframes correctChange /* Safari and Chrome - necessary duplicate */
+{
+  0%   {background: initial;}
+  50%  {background: green;}
+  100%  {background: initial;}
+}
