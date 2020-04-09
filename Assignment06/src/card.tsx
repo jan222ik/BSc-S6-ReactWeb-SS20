@@ -6,7 +6,7 @@ type CardProps = {
 }
 
 const Card = (props: CardProps) => {
-    let colorClass = (props.playCard.suit == 'diamonds' || props.playCard.suit == 'spades') ? "black" : "red";
+    let colorClass = (props.playCard.suit == 'clubs' || props.playCard.suit == 'spades') ? "black" : "red";
     return <div className={`card ${colorClass}`}>
         <p>
             {props.playCard.displayCard}
