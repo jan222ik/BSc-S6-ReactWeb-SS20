@@ -13,14 +13,17 @@ class Game {
     currentIndex: number;
     score: number;
 
+    wNegativePoints: boolean
+
     constructor(onNextCard: OnNextCardCallback, onFinish: OnFinishCallback, onScoreChange: OnScoreChangeCallback) {
         this.onNextCard = onNextCard;
         this.onFinish = onFinish;
         this.onScoreChange = onScoreChange
         this.cards = [];
         for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 13; j++) {
-                this.cards.push(new PlayCard(SuitNames[i] as Suits, j))
+            for (let value = 0; value < 13; value++) {
+                let suit: Suits = SuitNames[i] as Suits;
+                this.cards.push(new PlayCard(suit, value))
             }
         }
     }
@@ -29,8 +32,9 @@ class Game {
         this.cards.sort(() => Math.random() - 0.5)
     }
 
-    start() {
+    start(wNegativePoints: boolean = false) {
         this.score = 0;
+        this.wNegativePoints = wNegativePoints;
         this.onScoreChange(this.score);
         this.currentIndex = -1;
         this.shuffle();
@@ -50,7 +54,7 @@ class Game {
     }
 
     awardPoints(isPositive: boolean) {
-        this.score += (isPositive) ? 1 : -1;
+        this.score += (isPositive) ? 1 : (this.wNegativePoints ? -1 : 0);
         this.onScoreChange(this.score)
     }
 
