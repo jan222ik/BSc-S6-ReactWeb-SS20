@@ -64,4 +64,4 @@ class Game {
 }
 const game = new Game();
 
-export {game, Game, PlayCard};
+export {game, PlayCard};
