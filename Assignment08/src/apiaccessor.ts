@@ -22,7 +22,7 @@ const GiphyAPI = {
 }
 
 type ResponseData = { id: string, url: string, images: { fixed_height: { url: string } }, title: string }
-type Response = { data: [], pagination: { total_count: number } }
+type Response = { data: [ResponseData], pagination: { total_count: number } }
 
 const LIMIT = 12;
 
@@ -41,9 +41,10 @@ const querySearch = (queryString: string, page: number = 1) => {
             ApiKeyAsParam(),
             OffsetAsParam(offset),
             LimitAsParam(LIMIT))
-        fetch(url)
+        fetch(url, {signal})
             .then((res) => res.json())
             .then(data => onFinishCallback(data))
+            .catch(e => console.log(e))
     }
 }
 
@@ -57,7 +58,23 @@ const queryTrending = (page: number = 0) => {
         fetch(url)
             .then((res) => res.json())
             .then(data => onFinishCallback(data))
+            .catch((e: any) => {console.log(e);})
     }
 }
 
-export {querySearch, queryTrending, ResponseData, LIMIT, Response}
+let abortController = new AbortController();
+let signal = abortController.signal;
+const loadImg = (url: string, imageSetter: any) => {
+    fetch(url, {signal})
+        .then(res => res.blob())
+        .then(img => imageSetter(URL.createObjectURL(img)))
+        .catch(e => console.log("Handled:" + e))
+}
+
+const cancelLoad = () => {
+    abortController.abort();
+    abortController = new AbortController();
+    signal = abortController.signal;
+}
+
+export {querySearch, queryTrending, ResponseData, LIMIT, Response, loadImg, cancelLoad}
