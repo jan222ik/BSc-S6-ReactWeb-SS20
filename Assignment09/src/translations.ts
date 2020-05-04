@@ -6,6 +6,11 @@ export enum Translations {
     Item_Count,
     Lang_Name,
     Language,
+    Numbers_Currency_Label,
+    Numbers_Currency_MinFrac_Label,
+    Numbers_KByte_Label,
+    Numbers_No_Style,
+    Numbers_Percentage_Label,
     Tab_Dates,
     Tab_Numbers,
     Tab_Texts,
@@ -13,9 +18,9 @@ export enum Translations {
     Texts_Amount_Interesting_Values,
     Texts_Amount_Label,
     Texts_Gender,
-    Texts_Gender_Label,
-    Texts_Gender_Amount,
     Texts_Gender_Amount_Label,
+    Texts_Gender_Amount,
+    Texts_Gender_Label,
     Texts_Result
 }
 
@@ -27,16 +32,21 @@ type TranslationSchema = {
     [Translations.Item_Count]: string,
     [Translations.Lang_Name]: string,
     [Translations.Language]: string,
-    [Translations.Tab_Numbers]: string,
+    [Translations.Numbers_Currency_Label]: string,
+    [Translations.Numbers_Currency_MinFrac_Label]: string,
+    [Translations.Numbers_KByte_Label]: string,
+    [Translations.Numbers_No_Style]: string,
+    [Translations.Numbers_Percentage_Label]: string,
     [Translations.Tab_Dates]: string,
+    [Translations.Tab_Numbers]: string,
     [Translations.Tab_Texts]: string,
     [Translations.Texts_Amount]: string,
     [Translations.Texts_Amount_Interesting_Values]: string,
     [Translations.Texts_Amount_Label]: string,
     [Translations.Texts_Gender]: string,
-    [Translations.Texts_Gender_Label]: string,
     [Translations.Texts_Gender_Amount]: string,
     [Translations.Texts_Gender_Amount_Label]: string,
+    [Translations.Texts_Gender_Label]: string,
     [Translations.Texts_Result]: string,
 }
 
@@ -48,6 +58,11 @@ const English: TranslationSchema = {
     [Translations.Item_Count]: "Item Count",
     [Translations.Language]: "Language",
     [Translations.Lang_Name]: "English",
+    [Translations.Numbers_Currency_Label]: "Currency:",
+    [Translations.Numbers_Currency_MinFrac_Label]: "Currency with 'minimumFractionDigits':",
+    [Translations.Numbers_KByte_Label]: "KiloByte:",
+    [Translations.Numbers_No_Style]: "FormattedNumber without Style",
+    [Translations.Numbers_Percentage_Label]: "Percentage:",
     [Translations.Tab_Dates]: "Dates",
     [Translations.Tab_Numbers]: "Numbers",
     [Translations.Tab_Texts]: "Texts",
@@ -75,6 +90,11 @@ const German: TranslationSchema = {
     [Translations.Item_Count]: "Anzahl an Gegenständen",
     [Translations.Language]: "Sprache",
     [Translations.Lang_Name]: "Deutsch",
+    [Translations.Numbers_Currency_Label]: "Währung:",
+    [Translations.Numbers_Currency_MinFrac_Label]: "Währung mit 'minimumFractionDigits':",
+    [Translations.Numbers_KByte_Label]: "KiloByte:",
+    [Translations.Numbers_No_Style]: "FormattedNumber ohne definierten Style",
+    [Translations.Numbers_Percentage_Label]: "Anteil in %:",
     [Translations.Tab_Dates]: "Daten",
     [Translations.Tab_Numbers]: "Zahlen",
     [Translations.Tab_Texts]: "Texte",
@@ -94,4 +114,11 @@ const German: TranslationSchema = {
     [Translations.Texts_Result]: "Ergebnisse:",
 }
 
-export {TranslationSchema, English, German}
+const messages = {
+    en: English,
+    de: German
+}
+const availableLanguages = Object.keys(messages)
+
+
+export {TranslationSchema, English, German, messages, availableLanguages}
