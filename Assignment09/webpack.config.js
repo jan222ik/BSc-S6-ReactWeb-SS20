@@ -57,6 +57,11 @@ module.exports = {
                 chunkFilename: "[id].css"
             }
         )
-    ]
-
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 8080,
+        overlay: true
+    }
 };
