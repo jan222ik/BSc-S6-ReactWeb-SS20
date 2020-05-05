@@ -19,9 +19,7 @@ const getLocale = (): string => {
         return language
     } else {
         return availableLanguages[0]
-
     }
-
 };
 
 
@@ -35,7 +33,7 @@ export const App = () => {
                     <Numbers locale={locale}/>
                 </Route>
                 <Route exact path={ROUTES.DATES}>
-                    <Dates/>
+                    <Dates locale={locale}/>
                 </Route>
                 <Route exact path={ROUTES.TEXTS}>
                     <Texts locale={locale}/>

@@ -3,7 +3,8 @@
     "build9": "webpack -p",
     "watch9": "webpack -d -w",
     "lint9": "eslint . --ext .tsx --ext .ts",
-    "dev9": "webpack-dev-server"
+    "dev9": "webpack-dev-server",
+    "start": "webpack-dev-server"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

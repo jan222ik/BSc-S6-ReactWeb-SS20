@@ -1,10 +1,10 @@
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import React, {useState} from "react";
-import {FormattedNumber, useIntl} from "react-intl";
-import {TextField} from "@material-ui/core";
+import {FormattedNumber} from "react-intl";
 import {Translations} from "./translations";
 import {DisplayCard} from "./DisplayCard";
-import {lang, langString, LocaleProps} from "./util";
+import {lang, LocaleProps} from "./util";
+import {CustomInput} from "./CustomInput";
 
 export const Numbers = (props: LocaleProps) => {
     const useStyles = makeStyles((theme: Theme) =>
@@ -31,20 +31,14 @@ export const Numbers = (props: LocaleProps) => {
     );
     const classes = useStyles();
     const [number, setNumber] = useState(0);
-    const intl = useIntl()
     return (
         <>
             <form className={classes.container} noValidate>
-                <TextField
+                <CustomInput
                     key={props.locale}
-                    label={langString(Translations.Item_Count, intl)}
-                    type="number"
-                    color="secondary" variant="outlined"
+                    labelTranslation={Translations.Numbers_Input_Label}
                     className={classes.fullWidthWithHorizontalMargin}
                     value={number}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
                     onChange={e => setNumber(Number.parseFloat(e.target.value))}
                 />
             </form>
@@ -64,7 +58,8 @@ export const Numbers = (props: LocaleProps) => {
                              result={<FormattedNumber value={number} style="unit" unit="kilobyte"/>}
                 />
                 <DisplayCard title={lang(Translations.Numbers_Percentage_Label)}
-                             result={<FormattedNumber value={number} style="unit" unit="percent" minimumFractionDigits={1}/>}
+                             result={<FormattedNumber value={number} style="unit" unit="percent"
+                                                      minimumFractionDigits={1}/>}
                 />
             </div>
         </>

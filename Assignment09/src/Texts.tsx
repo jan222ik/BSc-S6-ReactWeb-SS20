@@ -6,6 +6,7 @@ import {FormattedMessage, useIntl} from "react-intl";
 import {Autocomplete} from "@material-ui/lab";
 import {DisplayCard} from "./DisplayCard";
 import {lang, langString, LocaleProps} from "./util";
+import {CustomInput} from "./CustomInput";
 
 export const Texts = (props: LocaleProps) => {
     const useStyles = makeStyles((theme: Theme) =>
@@ -49,16 +50,11 @@ export const Texts = (props: LocaleProps) => {
                           }}
             />
             <form className={classes.container} noValidate>
-                <TextField
-                    key={props.locale}
-                    label={langString(Translations.Item_Count, intl)}
-                    type="number"
-                    color="secondary" variant="outlined"
+                <CustomInput
                     className={classes.fullWidthWithHorizontalMargin}
+                    key={props.locale}
+                    labelTranslation={Translations.Guest_Count}
                     value={number}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
                     onChange={e => {
                         let parseInt = Number.parseInt(e.target.value);
                         parseInt = (parseInt) ? Math.max(0, parseInt) : 0;
