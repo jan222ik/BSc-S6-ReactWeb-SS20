@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import {getPaginatedContent} from "./repository";
+import {getPaginatedContent} from "../repository";
 
 test('Check Paginated Content Generation', () => {
     const arr = getPaginatedContent(1);

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from "react";
 import {mount} from 'enzyme';
-import {PaginatedList} from "./PaginatedList";
+import {PaginatedList} from "../PaginatedList";
 
 test('Check List Page', () => {
     for (let init = 1; init < 2; init++) {

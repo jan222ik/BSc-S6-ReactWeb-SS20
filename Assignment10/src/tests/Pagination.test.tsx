@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from "react";
-import {Pagination} from "./Pagination";
+import {Pagination} from "../Pagination";
 import {mount} from 'enzyme';
 
 const PREV_BTN_ID = '#page-prev';
