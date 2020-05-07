@@ -3,7 +3,7 @@ const PREV_BTN_ID = '#page-prev';
 const NEXT_BTN_ID = '#page-next';
 const CURRENT_PAGE_ID = '#page-current';
 const LAST_ITEM_ID = '#item11';
-describe('Ecosia.org Demo', function() {
+describe('Main Scenario', function() {
 
     before(browser => browser.url('http://localhost:8080/'));
 
